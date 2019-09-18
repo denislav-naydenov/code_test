@@ -3,7 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe LeadForm do
-  subject { described_class.new({}) }
+  subject { described_class.new(params) }
+
+  let(:params) { {} }
 
   describe '#submit' do
     let(:lead_api) { instance_double(LeadAPI) }
@@ -69,6 +71,40 @@ RSpec.describe LeadForm do
       it 'assigns the message as error to the form' do
         subject.submit
         expect(subject.errors).to match_array([api_response['message']])
+      end
+    end
+  end
+
+  describe '#to_h' do
+    context 'with empty params' do
+      it 'returns a hash with nil values for each field' do
+        expect(subject.to_h).to eq(
+          name: nil,
+          business_name: nil,
+          telephone_number: nil,
+          email: nil,
+          contact_time: nil,
+          notes: nil,
+          reference: nil
+        )
+      end
+    end
+
+    context 'with non-empty params' do
+      let(:params) do
+        {
+          name: 'a name',
+          business_name: 'a business',
+          telephone_number: 'a phone',
+          email: 'an email',
+          contact_time: nil,
+          notes: nil,
+          reference: nil
+        }
+      end
+
+      it 'returns the params' do
+        expect(subject.to_h).to eq(params)
       end
     end
   end

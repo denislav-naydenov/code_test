@@ -11,6 +11,7 @@ class LeadsController < ApplicationController
     if @lead_form.submit
       redirect_to(new_lead_path, notice: 'Thank you for your interest!')
     else
+      flash[:alert] = @lead_form.errors.full_messages.to_sentence
       render :new
     end
   end

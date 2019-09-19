@@ -1,0 +1,7 @@
+- [:alert, :notice, :warning].each do |flash_type|
+  - if flash[flash_type]
+    div class="alert alert-#{alert_type_for(flash_type)} fade show" alert-dismissible="true" role="alert"
+      button.close type="button" data-dismiss="alert" aria-label="Close"
+        span aria-hidden="true" &times;
+      - Array(flash[flash_type]).each do |message|
+        p = message

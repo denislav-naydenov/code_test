@@ -11,6 +11,7 @@ gem 'mini_racer', platforms: :ruby
 gem 'puma', '~> 3.7'
 gem 'rails', '~> 5.1'
 gem 'sass-rails', '~> 5.0'
+gem 'slim-rails'
 gem 'sprockets-rails', require: 'sprockets/railtie'
 gem 'turbolinks', '~> 5.0.0'
 gem 'uglifier', '~> 4.1', '>= 4.1.20'

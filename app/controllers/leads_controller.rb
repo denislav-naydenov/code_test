@@ -9,9 +9,10 @@ class LeadsController < ApplicationController
     @lead_form = LeadForm.new(lead_form_params)
 
     if @lead_form.submit
-      redirect_to(new_lead_path, notice: 'Thank you for your interest!')
+      notice = 'Thank you! Your request was submitted successfully and that Makeitcheaper will contact you'
+      redirect_to(new_lead_path, notice: notice)
     else
-      flash[:alert] = @lead_form.errors.full_messages.to_sentence
+      flash.now[:alert] = @lead_form.errors.full_messages
       render :new
     end
   end

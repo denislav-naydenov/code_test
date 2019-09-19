@@ -39,7 +39,7 @@ RSpec.describe LeadsController do
       it 'adds flash notice' do
         post :create, params: { lead_form: params }
 
-        expect(flash[:notice]).to eq('Thank you for your interest!')
+        expect(flash[:notice]).to eq('Thank you! Your request was submitted successfully and that Makeitcheaper will contact you')
       end
     end
   end
@@ -62,7 +62,11 @@ RSpec.describe LeadsController do
     it 'adds flash alert' do
       post :create, params: { lead_form: params }
 
-      expect(flash[:alert]).to eq("Field 'business_name' is blank, Field 'telephone_number' is blank, Field 'telephone_number' wrong format (must contain have valid phone number with 11 numbers. string max 13 chars), Field 'email' is blank, and Field 'email' wrong format")
+      expect(flash[:alert]).to match_array(["Field 'business_name' is blank",
+                                            "Field 'telephone_number' is blank",
+                                            "Field 'telephone_number' wrong format (must contain have valid phone number with 11 numbers. string max 13 chars)",
+                                            "Field 'email' is blank",
+                                            "Field 'email' wrong format"])
     end
   end
 end

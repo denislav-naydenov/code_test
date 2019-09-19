@@ -1,0 +1,33 @@
+= form_with(model: loan_form, scope: 'lead_form', url: leads_path, local: true, class: 'mb-4') do |f|
+  fieldset
+    legend Contact us now and we will call you back
+
+  .form-group
+    = f.label :name, 'Name'
+    = f.text_field :name, autofocus: true, class: 'form-control', required: true, maxlength: 100
+
+  .form-group
+    = f.label :business_name, 'Business Name'
+    = f.text_field :business_name, class: 'form-control', required: true, maxlength: 100
+
+  .form-group
+    = f.label :telephone_number, 'Telephone Number'
+    = f.telephone_field :telephone_number, class: 'form-control', required: true, maxlength: 13
+
+  .form-group
+    = f.label :email, 'Email'
+    = f.email_field :email, class: 'form-control', required: true, maxlength: 80
+
+  .form-group
+    = f.label :contact_time, 'Contact Time (optional)'
+    = f.datetime_local_field :contact_time, class: 'form-control', maxlength: 18
+
+  .form-group
+    = f.label :notes, 'Notes (optional)'
+    = f.text_area :notes, class: 'form-control', maxlength: 255
+
+  .form-group
+    = f.label :reference, 'Reference (optional)'
+    = f.text_field :reference, class: 'form-control', maxlength: 50
+
+  = f.submit "Send", class: 'btn btn-primary'

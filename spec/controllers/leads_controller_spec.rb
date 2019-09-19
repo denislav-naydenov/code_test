@@ -69,4 +69,30 @@ RSpec.describe LeadsController do
                                             "Field 'email' wrong format"])
     end
   end
+
+  context 'when an error happens' do
+    let(:params) { { name: 'John Doe' } }
+
+    before do
+      allow_any_instance_of(LeadForm).to receive(:submit).and_raise(StandardError, 'API is down')
+    end
+
+    it 'logs the error' do
+      expect(Rails.logger).to receive(:error).with(instance_of(StandardError))
+
+      post :create, params: { lead_form: params }
+    end
+
+    it 'renders new' do
+      post :create, params: { lead_form: params }
+
+      expect(response).to render_template(:new)
+    end
+
+    it 'adds flash alert' do
+      post :create, params: { lead_form: params }
+
+      expect(flash[:alert]).to eq('An error occurred while submitting your input. Please call us by the phone.')
+    end
+  end
 end
